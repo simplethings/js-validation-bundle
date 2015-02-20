@@ -73,21 +73,46 @@ class ConstraintsGenerator
             $constraintsList = $metadata->getPropertyMetadata($property);
             foreach ($constraintsList as $constraints) {
                 foreach ($constraints->constraints as $constraint) {
-                    $const = clone $constraint;
-                    if ($this->translator) {
-                        $const->message = $this->translator->trans(
-                            $const->message,
-                            array(),
-                            'validations',
-                            $this->defaultLocale
-                        );
-                    }
+                    $const = $this->translateConstraint($constraint);
                     $data[$property][$this->getConstraintName($const)] = $const;
                 }
             }
         }
 
         return $data;
+    }
+
+    /**
+     * @param Constraint $constraint
+     * @return Constraint
+     */
+    protected function translateConstraint(Constraint $constraint)
+    {
+        if (!$this->translator) {
+            return $constraint;
+        }
+
+        $constraint = clone $constraint;
+
+        $refClass = new \ReflectionClass(get_class($constraint));
+        $properties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
+
+        foreach ($properties as $property) {
+            if(!preg_match('/message/i', $property->getName())) {
+                continue;
+            }
+
+            $message = $this->translator->trans(
+                $property->getValue($constraint),
+                array(),
+                'validations',
+                $this->defaultLocale
+            );
+
+            $property->setValue($constraint, $message);
+        }
+
+        return $constraint;
     }
 
     /**
