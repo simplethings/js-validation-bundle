@@ -4,7 +4,7 @@ namespace SimpleThings\JsValidationBundle;
 
 use Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @author David Badura <d.a.badura@gmail.com>
@@ -12,12 +12,12 @@ use Symfony\Component\Translation\Translator;
 class ConstraintsGenerator
 {
     /**
-     * @var LazyLoadingMetadataFactory
+     * @var MetadataFactoryInterface
      */
     protected $metadataFactory;
 
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -28,12 +28,12 @@ class ConstraintsGenerator
 
     /**
      * @param MetadataFactoryInterface $metadataFactory
-     * @param Translator                 $translator
-     * @param string                     $defaultLocale
+     * @param TranslatorInterface      $translator
+     * @param string                   $defaultLocale
      */
     public function __construct(
         MetadataFactoryInterface $metadataFactory,
-        Translator $translator = null,
+        TranslatorInterface $translator = null,
         $defaultLocale = null
     ) {
         $this->metadataFactory = $metadataFactory;

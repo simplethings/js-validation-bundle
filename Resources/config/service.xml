@@ -10,22 +10,22 @@
 
     <services>
         <service id="simple_things_js_validation.form.extension.validation" class="SimpleThings\JsValidationBundle\Form\Extension\ValidationTypeExtension">
+            <argument>%simple_things_js_validation.objects%</argument>
             <tag name="form.type_extension" alias="form" />
-            <argument>%simple_things_js_validation.client_validation.objects%</argument>
         </service>
 
         <service id="simple_things_js_validation.form.extension.error_attr" class="SimpleThings\JsValidationBundle\Form\Extension\ErrorAttrTypeExtension">
-            <tag name="form.type_extension" alias="field" />
             <argument type="service" id="translator" />
+            <tag name="form.type_extension" alias="form" />
         </service>
 
         <service id="simple_things_js_validation.twig.extension.validation" class="SimpleThings\JsValidationBundle\Twig\Extension\ValidationExtension">
-            <tag name="twig.extension" alias="form" />
-            <argument type="service" id="simple_things_js_validation.js_validation_constraints_generator" />
+            <argument type="service" id="simple_things_js_validation.constraints_generator" />
             <argument>%simple_things_js_validation.objects%</argument>
+            <tag name="twig.extension"/>
         </service>
 
-        <service id="simple_things_js_validation.js_validation_constraints_generator" class="SimpleThings\JsValidationBundle\ConstraintsGenerator">
+        <service id="simple_things_js_validation.constraints_generator" class="SimpleThings\JsValidationBundle\ConstraintsGenerator">
             <argument type="service" id="validator.mapping.class_metadata_factory" />
             <argument type="service" id="translator" on-invalid="null" />
             <argument>%kernel.default_locale%</argument>

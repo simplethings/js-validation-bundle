@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleThings\JsValidationBundle\Extension;
+namespace SimpleThings\JsValidationBundle\Twig\Extension;
 
 use SimpleThings\JsValidationBundle\ConstraintsGenerator;
 
