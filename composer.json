@@ -1,0 +1,23 @@
+{
+    "name": "simplethings/js-validation-bundle",
+    "description": "This bundles provides JS-Validation for Symfony2",
+    "keywords": ["symfony2", "form", "validation", "js"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [{
+        "name" : "David Badura",
+        "email" : "d.a.badura@gmail.com"
+    }],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony" : "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleThings\\JsValidationBundle\\": ""
+        }
+    }
+}
