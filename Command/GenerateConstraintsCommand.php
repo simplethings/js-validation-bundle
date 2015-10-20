@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @author david badura <badura@simplethings.de>
@@ -36,7 +37,8 @@ class GenerateConstraintsCommand extends ContainerAwareCommand
         $target = rtrim($input->getOption('target'), '/');
 
         if (!is_dir($target)) {
-            throw new \InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $target));
+            $fs = new Filesystem();
+            $fs->mkdir($target);
         }
 
         $objects = $this->getContainer()->getParameter('simple_things_js_validation.objects');
