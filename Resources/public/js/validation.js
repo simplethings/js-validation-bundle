@@ -13,6 +13,8 @@ var simpleThingsJsValidator = {
                 if(!re) {
                     return false;
                 }
+            } else {
+                // @todo some sort of logging
             }
         }
         return true;
@@ -175,6 +177,9 @@ var simpleThingsJsValidator = {
             }
 
             return true;
+        },
+        range: function (value, constraint, validator) {
+            return validator.constraints.size(value, constraint, validator);
         },
         size: function (value, constraint, validator) {
             if (isNaN(value.replace(/,/, "."))) {
