@@ -24,12 +24,12 @@ class ValidationExtension extends \Twig_Extension
     /**
      *
      * @param ConstraintsGenerator $generator
-     * @param array                            $objects
+     * @param array                $objects
      */
     public function __construct(ConstraintsGenerator $generator, array $objects)
     {
         $this->generator = $generator;
-        $this->objects   = $objects;
+        $this->objects = $objects;
     }
 
     /**
@@ -40,9 +40,9 @@ class ValidationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'simplethings_js_validation' => new \Twig_Function_Method(
-                $this,
-                'getValidationConstraints',
+            new \Twig_SimpleFunction(
+                'simplethings_js_validation',
+                [$this, 'getValidationConstraints'],
                 array('is_safe' => array('html'))
             ),
         );
